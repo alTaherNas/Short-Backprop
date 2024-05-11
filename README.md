@@ -15,7 +15,7 @@ $$
 *Proof.*
 
 $$
-\left[\frac{d}{dx}(Wx)\right]_{ij} = \frac{\partial}{\partial x_j}\left(\sum_{k=1}^{m} W_{ik}x_k\right) = W_{ij}
+[\frac{d}{dx}(Wx)]\_{ij} = \frac{\partial }{\partial x\_j}(\sum\_{k=1}^{m} W\_{ik}x\_k) = W\_{ij}
 $$
 
 **Lemma 2.** 
@@ -23,19 +23,19 @@ $$
 Let $f: \mathbb{R}^m \to 1$ and $W \in \mathbb{R}^{m \times n}$:
 
 $$
-\frac{d}{dW} f(Wx) = x \, \nabla f(Wx)^T
+\frac{d}{dW} f(Wx) = x ~ \nabla f(Wx)^T
 $$
 
 *Proof.*
 
 $$
-    y:= Wx \implies \frac{\partial (Wx)}{\partial W_{ji}} = \overset{\overset{j\text{th element}}{\downarrow\hspace{0.7cm}}}{\begin{pmatrix}0 &\dots& 0& x_i& 0& \dots& 0\end{pmatrix}_{1\times m}^T} = x_i e_j
+    y:= Wx \implies \frac{\partial (Wx)}{\partial W\_{ji}} = \overset{\overset{j\text{th element}}{\downarrow\hspace{0.7cm}}}{\begin{pmatrix}0 &\dots& 0& x\_i& 0& \dots& 0\end{pmatrix}\_{1\times m}^T} = x\_i e\_j
 $$
 
 $$
 \begin{align*}
-&\frac{d}{dW_{ji}} f(Wx) = \frac{\partial f}{\partial (Wx)} \frac{\partial (Wx)}{\partial W_{ji}} = \underbrace{\nabla f(Wx)}_{1 \times m}~\underbrace{x_i e_j }_{m\times 1}~ \quad \text{by chain rule}\\
-&\[\frac{d}{dW} f(Wx)\]_{ij} = \frac{\partial}{\partial W_{ji}} f(Wx) = x_i\,[\nabla f(Wx)]_j
+&\frac{d}{dW\_{ji}} f(Wx) = \frac{\partial f}{\partial (Wx)} \frac{\partial (Wx)}{\partial W\_{ji}}  = \underbrace{\nabla f(Wx)}\_{1 \times m}~\underbrace{x\_i e\_j }\_{m\times 1}~ \quad \text{by chain rule}\\
+&[\frac{d}{dW} f(Wx)]\_{ij} = \frac{\partial}{\partial W\_{ji}} f(Wx) = x\_i~[\nabla f(Wx)]\_j
 \end{align*}
 $$
 
@@ -60,8 +60,10 @@ $$
 Let us stick to the basic least-squared cost for our function approximation task. For the purposes of optimization we need a cost function that depends on all the weight matrices and biases:
 
 $$
-\mathbf{C}: \mathbb{R}^{l^{(0)}\times l^{(1)}} \times \mathbb{R}^{l^{(1)}} ... \times \mathbb{R}^{l^{(L-1)}\times l^{(L)}} \times \mathbb{R}^{l^{(L)}} \longrightarrow \mathbb{R}_{>0}\\
-W^{(1)}, b^{(1)}, \dots, W^{(L)}, b^{(L)} \longmapsto C(W^{(1)}, b^{(1)}, \dots, W^{(L)}, b^{(L)})
+\begin{align*}
+\mathbf{C}: \mathbb{R}^{l^{(0)}\times l^{(1)}} \times \mathbb{R}^{l^{(1)}} ... \times \mathbb{R}^{l^{(L-1)}\times l^{(L)}} \times \mathbb{R}^{l^{(L)}} &\longrightarrow \mathbb{R}_{>0}\\
+W^{(1)}, b^{(1)}, \dots, W^{(L)}, b^{(L)} &\longmapsto C(W^{(1)}, b^{(1)}, \dots, W^{(L)}, b^{(L)})
+\end{align*}
 $$
 
 ### Confusing Notation Alert
@@ -78,7 +80,7 @@ $$
 
 If you already know $y^{(L)}$, then that is all you need to know in order to compute the cost. Similarly you can argue that $W^{(L)}, b^{(L)}, y^{(L-1)}$ is enough information to compute the error. 
 
-Suppose we are given training data $\mathcal{D} = \{(s_i, t_i)\,,\, i \in [d]\}$:
+Suppose we are given training data $\mathcal{D} = \\{(s_i, t_i) \mid i \in [d]\\}$:
 
 $$
 C(y^{(L)}) = \frac{1}{2d} \sum_{i=1}^{d}{||{t - y^{(L)}(s_i)}||}^2
@@ -101,12 +103,19 @@ $$
 The nice thing about matrix calculus is that it takes care of everything under the hood of chain rule for us and we only need to mindlessly get the ordering right, for example:
 
 $$
-\frac {\partial y^{(k+1)}}{\partial y^{(k)}} = \frac{\partial y^{(k+1)}}{\partial (W^{k+1}y^{(k)}+b^{(k)})} \frac{{\partial (W^{k+1}y^{(k)}+b^{(k)}})}{\partial y^{(k)}} = \nabla \sigma_{k+1} W^{(k+1)}
+\frac {\partial y^{(k+1)}}{\partial y^{(k)}} = \frac{\partial y^{(k+1)}}{\partial (W^{k+1}y^{(k)}+b^{(k)})} \frac{{\partial (W^{k+1}y^{(k)}+b^{(k)}})}{\partial y^{(k)}} = \nabla \sigma\_{k+1} W^{(k+1)}
 $$
 
 Now following chain rule we write:
 
-$$ \begin{align*} &\frac{d}{dW_{ji}} f(Wx) = \frac{\partial f}{\partial (Wx)} \frac{\partial (Wx)}{\partial W_{ji}} = \underbrace{\nabla f(Wx)}_{1 \times m}~\underbrace{x_i e_j }_{m\times 1}~ \quad \text{by chain rule}\\ &[\frac{d}{dW} f(Wx)]_{ij} = \frac{\partial}{\partial W_{ji}} f(Wx) = x_i\,[\nabla f(Wx)]_j \end{align*} $$
+$$
+\begin{align*}\\
+&C = C(y^{(k+1)}(y^{(k)}), \dots):\frac{\partial C}{\partial y^{(k)}} = \frac{\partial C}{\partial y^{(k+1)}}\mathbb{R}\frac{\partial y^{(k+1)}}{\partial y^{(k)}}\\
+&y^{(k)} = y^{(k)}(W^{(k)}, \dots): \frac{\partial y^{(k)}}{\partial W^{(k)}\_{ji}} = \nabla \sigma\_{k}\mathbb{R}e\_j~ y\_i^{(k-1)}\\
+&C = C(y^{(k)}(W^{(k)}, b^{(k)}), \dots): \frac{\partial C}{\partial W^{(k)}\_{ji}} = \frac{\partial C}{\partial y^{(k)}}~\frac{\partial y^{(k)}}{\partial W^{(k)}\_{ji}} =  \frac{\partial C}{\partial y^{(k)}}\nabla \sigma\_{k}~e\_j~ y^{(k-1)}\_{i}\\
+&C = C(b^{(k)}, \dots): \frac{\partial C}{\partial b^{(k)}} = \frac{\partial C}{\partial y^{(k)}}~\frac{\partial y^{(k)}}{\partial b^{(k)}}
+\end{align*}
+$$
 
 where the correct explicit way to read the first equation is:
 
@@ -115,10 +124,10 @@ $$
 $$
 
 $$
-\begin{align}    \frac{\partial C}{\partial y^{(k)}} &= \frac{\partial C}{\partial y^{(k+1)}}\,\nabla \sigma_{k+1}\,W^{(k+1)} \\    \frac{\partial C}{\partial W^{(k)}} &= y^{(k-1)}\frac{\partial C}{\partial y^{(k)}}\,\nabla \sigma_k\\ \frac{\partial C}{\partial b^{(k)}} &= \frac{\partial C}{\partial y^{(k)}}\, \nabla \sigma_k\end{align}
+\begin{align}    \frac{\partial C}{\partial y^{(k)}} &= \frac{\partial C}{\partial y^{(k+1)}}~\nabla \sigma_{k+1}~W^{(k+1)} \\    \frac{\partial C}{\partial W^{(k)}} &= y^{(k-1)}\frac{\partial C}{\partial y^{(k)}}~\nabla \sigma_k\\ \frac{\partial C}{\partial b^{(k)}} &= \frac{\partial C}{\partial y^{(k)}}~ \nabla \sigma_k\end{align}
 $$
 
-where $\nabla \sigma_k$ is a diagonal matrix and that is why most places choose to write out backprop with Hadamard product. Recall that if $x, y \in \mathbb{R}^n$, then $x \odot y := \text{diag}(x)\, y$.
+where $\nabla \sigma_k$ is a diagonal matrix and that is why most places choose to write out backprop with Hadamard product. Recall that if $x, y \in \mathbb{R}^n$, then $x \odot y := \text{diag}(x)~ y$.
 
 # Simulation
 
@@ -150,8 +159,4 @@ for k in range(1, self.depth):
 
 I wrote the code with pedagogical concerns in mind and not for optimality at all. For example, we are wastefully multiplying a diagonal matrix with a vector when we could’ve used Hadamard product. But I didn’t want to make the code longer by using np.multiply. The obsession here is making the code as short and as close to the equations as possible. 
 
-Here is an illustration of how the back-propagation approximates a sinusoidal function:
-
-![Unknown.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/93aadc3a-edf1-4ac9-ae85-618a264dbe15/Unknown.png)
-
-Python can be found here: https://colab.research.google.com/drive/1ZWUUhFB1D2dhJfpEUHtaczFnwVnmciH-?usp=sharing
+Python can also be found here: https://colab.research.google.com/drive/1ZWUUhFB1D2dhJfpEUHtaczFnwVnmciH-?usp=sharing
