@@ -15,7 +15,7 @@ $$
 *Proof.*
 
 $$
-\frac{d}{dx}(Wx)_{ij} = \frac{\partial }{\partial x_j}(\sum_{k=1}^{m} W_{ik}x_k) = W_{ij}
+W_{ij}
 $$
 
 **Lemma 2.** 
