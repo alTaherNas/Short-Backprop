@@ -33,7 +33,9 @@ $$
 $$
 
 $$
-\begin{align*}        &\frac{d}{dW_{ji}} f(Wx) = \frac{\partial f}{\partial (Wx)} \frac{\partial (Wx)}{\partial W_{ji}}  = \underbrace{\nabla f(Wx)}_{1 \times m}~\underbrace{x_i e_j }_{m\times 1}~ \quad \text{by chain rule}\\        &[\frac{d}{dW} f(Wx)]_{ij} = \frac{\partial}{\partial W_{ji}} f(Wx) = x_i\,[\nabla f(Wx)]_j
+\begin{align*}
+&\frac{d}{dW_{ji}} f(Wx) = \frac{\partial f}{\partial (Wx)} \frac{\partial (Wx)}{\partial W_{ji}} = \underbrace{\nabla f(Wx)}_{1 \times m}~\underbrace{x_i e_j }_{m\times 1}~ \quad \text{by chain rule}\\
+&\[\frac{d}{dW} f(Wx)\]_{ij} = \frac{\partial}{\partial W_{ji}} f(Wx) = x_i\,[\nabla f(Wx)]_j
 \end{align*}
 $$
 
