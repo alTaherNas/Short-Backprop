@@ -103,9 +103,7 @@ $$
 
 Now following chain rule we write:
 
-$$
-\begin{align*}\\    &C = C(y^{(k+1)}(y^{(k)}), \dots):\frac{\partial C}{\partial y^{(k)}} = \frac{\partial C}{\partial y^{(k+1)}}\,\frac{\partial y^{(k+1)}}{\partial y^{(k)}}\\    &y^{(k)} = y^{(k)}(W^{(k)}, \dots): \frac{\partial y^{(k)}}{\partial W^{(k)}_{ji}} = \nabla \sigma_{k}\,e_j\, y_i^{(k-1)}\\    &C = C(y^{(k)}(W^{(k)}, b^{(k)}), \dots): \frac{\partial C}{\partial W^{(k)}_{ji}} = \frac{\partial C}{\partial y^{(k)}}\,\frac{\partial y^{(k)}}{\partial W^{(k)}_{ji}} =  \frac{\partial C}{\partial y^{(k)}}\nabla \sigma_{k}\,e_j\, y^{(k-1)}_{i} \\    &C = C(b^{(k)}, \dots): \frac{\partial C}{\partial b^{(k)}} = \frac{\partial C}{\partial y^{(k)}}\,\frac{\partial y^{(k)}}{\partial b^{(k)}} \end{align*}
-$$
+$$ \begin{align*} &\frac{d}{dW_{ji}} f(Wx) = \frac{\partial f}{\partial (Wx)} \frac{\partial (Wx)}{\partial W_{ji}} = \underbrace{\nabla f(Wx)}_{1 \times m}~\underbrace{x_i e_j }_{m\times 1}~ \quad \text{by chain rule}\\ &[\frac{d}{dW} f(Wx)]_{ij} = \frac{\partial}{\partial W_{ji}} f(Wx) = x_i\,[\nabla f(Wx)]_j \end{align*} $$
 
 where the correct explicit way to read the first equation is:
 
