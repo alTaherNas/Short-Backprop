@@ -6,7 +6,7 @@ Throughout, we will follow [Numerator-Layout](https://en.wikipedia.org/wiki/Matr
 
 **Lemma 1.**
 
-Let $x \in \R^n$ and $W \in \R^{m\times n}$:
+Let $x \in \mathbb{R}^n$ and $W \in \mathbb{R}^{m\times n}$:
 
 $$
 \frac{d}{dx}(Wx) = W
@@ -20,7 +20,7 @@ $$
 
 **Lemma 2.** 
 
-Let $f: \R^m \to 1$ and $W \in \R^{m \times n}$:
+Let $f: \mathbb{R}^m \to 1$ and $W \in \mathbb{R}^{m \times n}$:
 
 $$
 \frac{d}{dW} f(Wx) = x \, \nabla f(Wx)^T
@@ -40,7 +40,7 @@ $$
 
 ## Circuit
 
-We represent the output of layer $k$ with $y^{(k)}$ which is a vector of arbitrary size $l^{(k)}$. The activation functions $\sigma_{k+1}: \R^{l^{(k+1)}} \longrightarrow \R^{l^{(k+1)}}$ are assumed to be differentiable which means we are not covering relu here (the fix might be covered in a later blog!).  We have $L$ layers in total with the output of last layer implementing the function we wish to approximate. To chain the layers together, we must use a recursive relationship:
+We represent the output of layer $k$ with $y^{(k)}$ which is a vector of arbitrary size $l^{(k)}$. The activation functions $\sigma_{k+1}: \mathbb{R}^{l^{(k+1)}} \longrightarrow \mathbb{R}^{l^{(k+1)}}$ are assumed to be differentiable which means we are not covering relu here (the fix might be covered in a later blog!).  We have $L$ layers in total with the output of last layer implementing the function we wish to approximate. To chain the layers together, we must use a recursive relationship:
 
 $$
 y^{(k+1)} = \sigma_{k+1}(W^{(k+1)}y^{(k)} + b^{(k+1)})
@@ -57,7 +57,7 @@ $$
 Let us stick to the basic least-squared cost for our function approximation task. For the purposes of optimization we need a cost function that depends on all the weight matrices and biases:
 
 $$
-\mathbf{C}: \R^{l^{(0)}\times l^{(1)}} \times \R^{l^{(1)}} ... \times \R^{l^{(L-1)}\times l^{(L)}} \times \R^{l^{(L)}} \longrightarrow \R_{>0}\\
+\mathbf{C}: \mathbb{R}^{l^{(0)}\times l^{(1)}} \times \mathbb{R}^{l^{(1)}} ... \times \mathbb{R}^{l^{(L-1)}\times l^{(L)}} \times \mathbb{R}^{l^{(L)}} \longrightarrow \mathbb{R}_{>0}\\
 W^{(1)}, b^{(1)}, \dots, W^{(L)}, b^{(L)} \longmapsto C(W^{(1)}, b^{(1)}, \dots, W^{(L)}, b^{(L)})
 $$
 
@@ -117,7 +117,7 @@ $$
 \begin{align}    \frac{\partial C}{\partial y^{(k)}} &= \frac{\partial C}{\partial y^{(k+1)}}\,\nabla \sigma_{k+1}\,W^{(k+1)} \\    \frac{\partial C}{\partial W^{(k)}} &= y^{(k-1)}\frac{\partial C}{\partial y^{(k)}}\,\nabla \sigma_k\\ \frac{\partial C}{\partial b^{(k)}} &= \frac{\partial C}{\partial y^{(k)}}\, \nabla \sigma_k\end{align}
 $$
 
-where $\nabla \sigma_k$ is a diagonal matrix and that is why most places choose to write out backprop with Hadamard product. Recall that if $x, y \in \R^n$, then $x \odot y := \text{diag}(x)\, y$.
+where $\nabla \sigma_k$ is a diagonal matrix and that is why most places choose to write out backprop with Hadamard product. Recall that if $x, y \in \mathbb{R}^n$, then $x \odot y := \text{diag}(x)\, y$.
 
 # Simulation
 
