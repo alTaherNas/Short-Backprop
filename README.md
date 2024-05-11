@@ -124,7 +124,10 @@ $$
 $$
 
 $$
-\begin{align}    \frac{\partial C}{\partial y^{(k)}} &= \frac{\partial C}{\partial y^{(k+1)}}~\nabla \sigma_{k+1}~W^{(k+1)} \\    \frac{\partial C}{\partial W^{(k)}} &= y^{(k-1)}\frac{\partial C}{\partial y^{(k)}}~\nabla \sigma_k\\ \frac{\partial C}{\partial b^{(k)}} &= \frac{\partial C}{\partial y^{(k)}}~ \nabla \sigma_k\end{align}
+\begin{align}
+\frac{\partial C}{\partial y^{(k)}} &= \frac{\partial C}{\partial y^{(k+1)}}~\nabla \sigma_{k+1}~W^{(k+1)}\\
+\frac{\partial C}{\partial W^{(k)}} &= y^{(k-1)}\frac{\partial C}{\partial y^{(k)}}~\nabla \sigma_k\\
+\frac{\partial C}{\partial b^{(k)}} &= \frac{\partial C}{\partial y^{(k)}}~ \nabla \sigma_k\end{align}
 $$
 
 where $\nabla \sigma_k$ is a diagonal matrix and that is why most places choose to write out backprop with Hadamard product. Recall that if $x, y \in \mathbb{R}^n$, then $x \odot y := \text{diag}(x)~ y$.
@@ -135,25 +138,24 @@ The code for forward pass is embarrassingly simple:
 
 ```python
 for k in range(1, self.depth):
-		self.y[k] = self.sigma(self.W[k] @ self.y[k-1] + self.b[k])
-		self.nabla_sigma[k] = np.diagflat(self.sigma_derivative(self.y[k]))
+    self.y[k] = self.sigma(self.W[k] @ self.y[k-1] + self.b[k])
+    self.nabla_sigma[k] = np.diagflat(self.sigma_derivative(self.y[k]))
 ```
 
 For backward pass the three main equations lead to only three lines of code!
 
 ```python
-for k in range(1, self.depth):
-        
-		# clip
-    self.dC_dy[-k] = self.clip(self.dC_dy[-k])
-        
-		# first equation
-		self.dC_dy[-1-k] = self.dC_dy[-k] @ self.nabla_sigma[-k] @ self.W[-k]
+for k in range(1, self.depth):  
+    # clip
+    self.dC_dy[-k] = self.clip(self.dC_dy[-k])    
 
-		# second equation
+    # first equation
+    self.dC_dy[-1-k] = self.dC_dy[-k] @ self.nabla_sigma[-k] @ self.W[-k]
+
+    # second equation
     self.W[-k] += - self.lr * (self.y[-1-k] @ (self.dC_dy[-k] @ self.nabla_sigma[-k])).T
         
-		# third equation
+    # third equation
     self.b[-k] += - self.lr * (self.dC_dy[-k] @ self.nabla_sigma[-k]).T
 ```
 
